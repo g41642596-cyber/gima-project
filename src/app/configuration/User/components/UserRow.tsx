@@ -18,7 +18,7 @@ export default function UserRow({ user, onEliminar }: UserRowProps) {
                         {user.iniciales}
                     </div>
                     <div className="ml-4">
-                        <div className="font-medium text-gray-900">{user.nombre}</div>
+                        <div className="font-medium text-gray-900">{user.name}</div>
                         <div className="text-gray-500">{user.email}</div>
                     </div>
                 </div>
@@ -28,12 +28,12 @@ export default function UserRow({ user, onEliminar }: UserRowProps) {
             <td className="p-4">{user.rol}</td>
 
             {/* Columna DEPARTAMENTO */}
-            <td className="p-4">{user.departamento}</td>
+            <td className="p-4">{user.department}</td>
 
             {/* Columna ESTADO */}
             <td className="p-4">
-        <span className={`px-2 py-1 rounded-full text-xs font-medium ${user.estado === 'Activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-          {user.estado}
+        <span className={`px-2 py-1 rounded-full text-xs font-medium ${user.status === 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+          {user.status}
         </span>
             </td>
 
