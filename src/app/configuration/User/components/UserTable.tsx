@@ -21,9 +21,9 @@ export default function UserTable() {
 
     // 4. FILTRAR usuarios según búsqueda
     const usuariosFiltrados = users.filter(user =>
-        user.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+        user.name.toLowerCase().includes(busqueda.toLowerCase()) ||
         user.email.toLowerCase().includes(busqueda.toLowerCase()) ||
-        user.departamento.toLowerCase().includes(busqueda.toLowerCase())
+        user.department.toLowerCase().includes(busqueda.toLowerCase())
     );
 
     return (
