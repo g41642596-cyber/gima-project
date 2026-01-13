@@ -1,10 +1,11 @@
-// app/configuracion/usuarios/components/UserTable.tsx
-'use client'; // ¡IMPORTANTE! Esto va en la primera línea
+
+'use client';
 
 import { useState } from 'react';
 import { User } from '../types/user';
 import { mockUsers } from '../utils/mockUsers';
 import UserRow from './UserRow';
+import UserModal from './UserModal'; // Agregar esta importación
 
 export default function UserTable() {
     // 1. ESTADO: Guardar la lista de usuarios
@@ -13,13 +14,55 @@ export default function UserTable() {
     // 2. ESTADO: Guardar el texto de búsqueda
     const [busqueda, setBusqueda] = useState('');
 
-    // 3. FUNCIÓN: Eliminar usuario por ID
+    // 3. ESTADO: Controlar modal (AGREGAR)
+    const [modalAbierto, setModalAbierto] = useState(false);
+    const [usuarioEditando, setUsuarioEditando] = useState<User | null>(null);
+
+    // 4. FUNCIÓN: Eliminar usuario por ID
     const eliminarUsuario = (id: string) => {
         const nuevosUsuarios = users.filter(user => user.id !== id);
         setUsers(nuevosUsuarios);
     };
 
-    // 4. FILTRAR usuarios según búsqueda
+    // 5. FUNCIÓN: Abrir modal para nuevo usuario (AGREGAR)
+    const abrirModalNuevo = () => {
+        setUsuarioEditando(null);
+        setModalAbierto(true);
+    };
+
+    // 6. FUNCIÓN: Abrir modal para editar usuario (AGREGAR)
+    const abrirModalEditar = (user: User) => {
+        setUsuarioEditando(user);
+        setModalAbierto(true);
+    };
+
+    // 7. FUNCIÓN: Cerrar modal (AGREGAR)
+    const cerrarModal = () => {
+        setModalAbierto(false);
+        setUsuarioEditando(null);
+    };
+
+    // 8. FUNCIÓN: Guardar usuario (AGREGAR)
+    const guardarUsuario = (userData: any) => {
+        if (usuarioEditando) {
+            // Modo edición: actualizar usuario existente
+            setUsers(users.map(u =>
+                u.id === usuarioEditando.id
+                    ? { ...userData, id: usuarioEditando.id }
+                    : u
+            ));
+        } else {
+            // Modo creación: agregar nuevo usuario
+            const nuevoUsuario: User = {
+                ...userData,
+                id: Date.now().toString(), // ID temporal
+            };
+            setUsers([...users, nuevoUsuario]);
+        }
+        cerrarModal();
+    };
+
+    // 9. FILTRAR usuarios según búsqueda (CORREGIR nombres de propiedades)
     const usuariosFiltrados = users.filter(user =>
         user.name.toLowerCase().includes(busqueda.toLowerCase()) ||
         user.email.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -50,7 +93,10 @@ export default function UserTable() {
                     </div>
                 </div>
 
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button
+                    onClick={abrirModalNuevo} // Agregar onClick aquí
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
                     + Nuevo usuario
                 </button>
             </div>
@@ -83,11 +129,20 @@ export default function UserTable() {
                             key={user.id}
                             user={user}
                             onEliminar={eliminarUsuario}
+                            onEditar={abrirModalEditar} // Pasar función de editar
                         />
                     ))}
                     </tbody>
                 </table>
             </div>
+
+            {/* Agregar el modal aquí (sin cambiar estilos existentes) */}
+            <UserModal
+                isOpen={modalAbierto}
+                onClose={cerrarModal}
+                onSave={guardarUsuario}
+                user={usuarioEditando}
+            />
         </div>
     );
 }
