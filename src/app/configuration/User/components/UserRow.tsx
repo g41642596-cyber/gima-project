@@ -5,9 +5,10 @@ import { User } from '../types/user';
 interface UserRowProps {
     user: User;
     onEliminar: (id: string) => void;
+    onEditar: (user: User) => void; // Agregar esta prop
 }
 
-export default function UserRow({ user, onEliminar }: UserRowProps) {
+export default function UserRow({ user, onEliminar, onEditar }: UserRowProps) {
     return (
         <tr className="border-b hover:bg-gray-50">
             {/* Columna USUARIO */}
@@ -32,14 +33,17 @@ export default function UserRow({ user, onEliminar }: UserRowProps) {
 
             {/* Columna ESTADO */}
             <td className="p-4">
-        <span className={`px-2 py-1 rounded-full text-xs font-medium ${user.status === 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-          {user.status}
-        </span>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${user.status === 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {user.status}
+                </span>
             </td>
 
             {/* Columna ACCIÓN */}
             <td className="p-4">
-                <button className="text-blue-600 hover:text-blue-900 mr-2">
+                <button
+                    onClick={() => onEditar(user)} // Agregar onClick aquí
+                    className="text-blue-600 hover:text-blue-900 mr-2"
+                >
                     Editar
                 </button>
                 <button
