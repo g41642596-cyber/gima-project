@@ -1,43 +1,51 @@
-// app/configuracion/usuarios/components/UserModal.tsx
-'use client';
+//UserModal muestra un formulario, recoge datos del usuario (crea y edita) y se envian a UserTable
+'use client'; //NextJs, se ejecuta en el Navegador, dado al uso de React (useState, eventos, etc)
 
+//Importamos las tecnolgias necesarias, junto con la Interfaz "User"
+//State: Guarda datos en memoria
+//Effect: Ejecuta codigo cuando algo cambia
 import React, { useState, useEffect } from 'react';
 import { User } from '../types/user';
 
+//Necesario para el uso de la Funcion UserModal
 interface UserModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSave: (user: any) => void;
-    user: User | null;
+    isOpen: boolean;//Formulario se muestra o no
+    onClose: () => void;//Formulario se cierra
+    onSave: (user: any) => void; //Recibe los datos, se envian
+    user: User | null;//Se Edita | Se Crea
 }
 
+//Funcion UserModal
 export default function UserModal({ isOpen, onClose, onSave, user }: UserModalProps) {
+    //Formulario, junto con setters
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
     const [rol, setRol] = useState('Administrador');
     const [departamento, setDepartamento] = useState('Infraestructura');
     const [estado, setEstado] = useState<User['status']>('available');
 
-    // Efecto para cargar datos cuando se edita
+    // Efecto para cargar datos cuando se edita (Editar)
     useEffect(() => {
         if (user) {
-         setNombre(user.name);
+            setNombre(user.name);
             setEmail(user.email);
             setRol(user.rol);
             setDepartamento(user.department);
             setEstado(user.status);
         } else {
-            // Resetear formulario para nuevo usuario
+            // Resetear formulario para nuevo usuario (Crear)
             setNombre('');
             setEmail('');
             setRol('Administrador');
             setDepartamento('Infraestructura');
             setEstado('available');
         }
-    }, [user, isOpen]);
+    }, [user, isOpen]); //Se ejecuta solo si User o isOpen se alteran
 
+    //Si el Formulario se cierra, este deja de existir en la pagina
     if (!isOpen) return null;
 
+    //Esta funcion recibe un evento del Formulario, no retorna nada
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
