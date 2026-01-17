@@ -3,7 +3,7 @@ import { Search, Bell, User, Plus, ChevronLeft, Pencil, Trash2 } from "lucide-re
 
 export default function UbicacionesPage() {
 
-  // Arreglo de datos simulados (mock data) Representa las ubicaciones registradas en el sistema
+  // Arreglo de datos simulados (mock data)
   const ubicaciones = [
     { id: "LOC-001", nombre: "LABORATORIO", edificio: "Edificio de ciencias", estado: "Activo" },
     { id: "LOC-002", nombre: "SALA MULTIPLE", edificio: "Edificio de ciencias", estado: "Activo" },
