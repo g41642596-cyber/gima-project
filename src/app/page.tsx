@@ -1,37 +1,29 @@
-// Importación de íconos desde la librería lucide-react
-// Estos íconos se usan como componentes React dentro del JSX
 import { Search, Bell, User, Plus, ChevronLeft, Pencil, Trash2 } from "lucide-react";
 
-// Componente principal de la página de Ubicaciones
-// Se exporta por defecto para que Next.js lo use como página
+
 export default function UbicacionesPage() {
 
-  // Arreglo de datos simulados (mock data)
-  // Representa las ubicaciones registradas en el sistema
+  // Arreglo de datos simulados (mock data) Representa las ubicaciones registradas en el sistema
   const ubicaciones = [
     { id: "LOC-001", nombre: "LABORATORIO", edificio: "Edificio de ciencias", estado: "Activo" },
     { id: "LOC-002", nombre: "SALA MULTIPLE", edificio: "Edificio de ciencias", estado: "Activo" },
     { id: "LOC-003", nombre: "SALA DE COMPUTACION", edificio: "Edificio de ciencias", estado: "Activo" },
   ];
 
-  // Retorno del componente (JSX)
   return (
-    // Contenedor principal que ocupa toda la altura de la pantalla
-    // Fondo gris claro y padding general
+    // Contenedor principal
     <div className="min-h-screen bg-[#F8FAFC] p-8">
       <div className="max-w-6xl mx-auto">
         
         {/* ================= HEADER SUPERIOR ================= */}
         <header className="flex justify-between items-center mb-10">
 
-          {/* TÍTULOS DE LA SECCIÓN */}
+          {/* TÍTULOS */}
           <div>
-            {/* Título principal de navegación */}
             <h1 className="text-[28px] font-bold text-[#0B2545] font-microgramma uppercase leading-tight tracking-tight">
               Configuración /
             </h1>
 
-            {/* Subtítulo de la página */}
             <h2 className="text-[28px] font-bold text-[#0B2545] font-microgramma uppercase leading-tight tracking-tight">
               Ubicaciones
             </h2>
@@ -42,7 +34,6 @@ export default function UbicacionesPage() {
 
             {/* ================= BUSCADOR ================= */}
             <div className="relative font-archivo">
-              {/* Ícono de lupa dentro del input */}
               <Search
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
                 size={18}
@@ -90,18 +81,17 @@ export default function UbicacionesPage() {
           <div className="bg-[#F0FDFA] p-10 pb-8 border-b border-blue-50">
           <div className="flex justify-between items-start">
             <div>
-              {/* Título de la tabla */}
+        
               <h3 className="text-xl font-bold text-[#0B2545] font-microgramma uppercase">
                 Ubicaciones y sedes
               </h3>
 
-              {/* Descripción */}
               <p className="text-gray-400 text-sm font-archivo">
                 Gestión de espacios físicos universitarios
               </p>
             </div>
 
-            {/* BOTÓN PARA CREAR UNA NUEVA UBICACIÓN */}
+            {/* BOTÓN NUEVA UBICACIÓN */}
             <button className="
               bg-[#0066FF]
               text-white
@@ -161,16 +151,10 @@ export default function UbicacionesPage() {
                     hover:bg-gray-50/50
                   "
                 >
-                  {/* ID */}
+                  {/* ATRIBUTOS */}
                   <span className="text-sm text-gray-400 font-medium">{loc.id}</span>
-
-                  {/* Nombre */}
                   <span className="text-sm font-bold text-[#0B2545]">{loc.nombre}</span>
-
-                  {/* Edificio */}
                   <span className="text-sm text-gray-500">{loc.edificio}</span>
-
-                  {/* Estado */}
                   <div>
                     <span className="bg-[#E3F2FD] text-[#0B2545] px-4 py-1.5 rounded-full text-[10px] font-bold">
                       {loc.estado}
