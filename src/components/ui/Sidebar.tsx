@@ -1,79 +1,153 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; 
-import { 
-  LayoutDashboard, Box, Wrench, ClipboardList, Settings, Menu 
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  LayoutDashboard,
+  Box,        // Usé Box para activos (más genérico)
+  Wrench,
+  ClipboardList, // Usé ClipboardList para reportes (visual)
+  Settings,
+  Menu,
+  LogOut,
 } from "lucide-react";
+import { cn } from "@/lib/utils"; // Asegúrate de tener esto, si no, usa template literals estándar
 
-export default function Sidebar() {
+export function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
-  const pathname = usePathname(); 
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // Definición de rutas e iconos en un solo lugar
+  const menuItems = [
+    {
+      icon: LayoutDashboard,
+      label: "Dashboard",
+      href: "/dashboard",
+    },
+    {
+      icon: Box,
+      label: "Activos",
+      href: "/dashboard/categorias-activos", // Usando la ruta anidada del Code B
+    },
+    {
+      icon: Wrench,
+      label: "Mantenimiento",
+      href: "/dashboard/mantenimiento",
+    },
+    {
+      icon: ClipboardList,
+      label: "Reportes",
+      href: "/dashboard/reportes",
+    },
+    {
+      icon: Settings,
+      label: "Configuración",
+      href: "/dashboard/configuracion",
+    },
+  ];
+
+  const handleLogout = () => {
+    // Aquí puedes agregar lógica de limpieza de tokens si es necesario
+    router.push("/auth/login");
+  };
 
   return (
-    <aside 
-      className={`
-        bg-gima-navy text-white flex flex-col p-4 rounded-r-3xl h-screen sticky top-0 shadow-2xl z-50 
-        transition-all duration-300 ease-in-out shrink-0
-        ${isOpen ? 'w-64' : 'w-24'} 
-      `}
+    <aside
+      className={cn(
+        "bg-[#001F3F] text-white flex flex-col h-screen sticky top-0 shadow-2xl z-50",
+        "transition-all duration-300 ease-in-out shrink-0 rounded-r-3xl", // Estilo visual del Code A
+        isOpen ? "w-64" : "w-20"
+      )}
     >
-      <div className="mb-8 px-1 flex items-center justify-between">
-        <div className={`relative w-28 h-12 transition-opacity duration-200 ${isOpen ? 'opacity-100' : 'opacity-0 hidden'}`}>
-           <Image src="/logo-gima.png" alt="GIMA Logo" fill className="object-contain object-left" />
+      {/* Header: Logo + Toggle */}
+      <div className="flex items-center justify-between p-4 mb-4">
+        <div
+          className={cn(
+            "relative h-10 transition-all duration-300 overflow-hidden",
+            isOpen ? "w-32 opacity-100" : "w-0 opacity-0"
+          )}
+        >
+          {/* Usamos object-contain y fill para mejor adaptación */}
+          <Image
+            src="/logo-gima.png"
+            alt="GIMA Logo"
+            fill
+            className="object-contain object-left"
+            priority
+          />
         </div>
-        <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-lg hover:bg-white/10 transition-colors">
+        
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2 rounded-lg hover:bg-white/10 transition-colors text-gray-300 hover:text-white"
+        >
           <Menu size={24} />
         </button>
       </div>
 
-      <nav className="flex-1 space-y-4">
-        {/* link es para un Dashboard general */}
-        <SidebarItem icon={<LayoutDashboard size={20} />} label="Dashboard" isOpen={isOpen} href="/dashboard" isActive={pathname === '/dashboard'} />
-        
-        <SidebarItem icon={<Box size={20} />} label="Activos" isOpen={isOpen} href="/activos" isActive={pathname === '/activos'} />
-        
-        <SidebarItem icon={<Wrench size={20} />} label="Mantenimiento" isOpen={isOpen} href="/mantenimiento" isActive={pathname === '/mantenimiento'} />
-        
-        {/* linkeo a la carpeta Reportes */}
-        <SidebarItem 
-          icon={<ClipboardList size={20} />} 
-          label="Reportes" 
-          isOpen={isOpen} 
-          href="/reportes" 
-          isActive={pathname === '/reportes' || pathname === '/asistencia'} 
-        />
+      {/* Navegación */}
+      <nav className="flex-1 px-3 space-y-2">
+        {menuItems.map((item) => {
+          const Icon = item.icon;
+          // Detectar si está activo (coincidencia exacta o sub-ruta)
+          const isActive =
+            pathname === item.href || pathname.startsWith(`${item.href}/`);
 
-        <SidebarItem icon={<Settings size={20} />} label="Configuración" isOpen={isOpen} href="/configuracion" isActive={pathname === '/configuracion'} />
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group overflow-hidden whitespace-nowrap",
+                !isOpen && "justify-center", // Centrar icono si está cerrado
+                isActive
+                  ? "bg-white text-[#001F3F] font-bold shadow-md"
+                  : "text-gray-300 hover:text-white hover:bg-white/10"
+              )}
+            >
+              <div className="min-w-[24px]"> {/* Contenedor fijo para evitar saltos */}
+                <Icon size={20} className={cn(isActive && "animate-pulse-once")} /> 
+              </div>
+              
+              <span
+                className={cn(
+                  "transition-all duration-300 origin-left",
+                  isOpen ? "opacity-100 translate-x-0 w-auto" : "opacity-0 -translate-x-4 w-0 hidden"
+                )}
+              >
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
       </nav>
 
-      <div className="mt-auto pt-6 border-t border-white/10 overflow-hidden">
-        <button className="text-gima-gray hover:text-white transition-colors text-sm flex items-center gap-3 whitespace-nowrap">
-           {isOpen ? "Cerrar sesión" : "Salir"}
+      {/* Footer: Logout */}
+      <div className="p-4 border-t border-white/10 mt-auto overflow-hidden">
+        <button
+          onClick={handleLogout}
+          className={cn(
+            "flex items-center gap-3 w-full px-3 py-3 rounded-xl transition-all duration-200 text-gray-300 hover:text-white hover:bg-red-500/20 hover:text-red-200 whitespace-nowrap",
+            !isOpen && "justify-center"
+          )}
+          title="Cerrar sesión"
+        >
+          <div className="min-w-[24px]">
+             <LogOut size={20} />
+          </div>
+          <span
+             className={cn(
+               "transition-all duration-300",
+               isOpen ? "opacity-100" : "opacity-0 w-0 hidden"
+             )}
+          >
+            Cerrar sesión
+          </span>
         </button>
       </div>
     </aside>
-  );
-}
-
-function SidebarItem({ icon, label, isOpen, href, isActive }: any) {
-  return (
-    <Link href={href}>
-      <div className={`
-        flex items-center gap-3 px-4 py-3 rounded-xl font-medium cursor-pointer transition-all whitespace-nowrap overflow-hidden
-        ${!isOpen && 'justify-center px-2'}
-        ${isActive 
-           ? "bg-white text-gima-blue shadow-lg font-bold transform scale-105" 
-           : "text-slate-300 hover:text-white hover:bg-white/10"
-        }
-      `}>
-        <div className="min-w-[20px]">{icon}</div>
-        <span className={`transition-opacity duration-200 ${isOpen ? 'opacity-100' : 'opacity-0 w-0'}`}>
-          {label}
-        </span>
-      </div>
-    </Link>
   );
 }

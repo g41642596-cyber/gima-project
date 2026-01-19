@@ -2,7 +2,9 @@
 
 import { useState } from "react"; 
 import { Pencil, Trash2, Plus, Search, Filter } from "lucide-react";
-import DeleteAlert from "@/app/components/alerta";
+import DeleteAlert from "@/components/ui/alerta";
+import { DashboardHeader } from "@/components/ui/dashboard-header";
+import Header from "@/components/ui/header";
 
 // Datos ejemplo 
 const initialCategories = [
@@ -33,7 +35,6 @@ export default function Dashboard() {
 
   return (
     <div className="font-sans space-y-6">
-      
       <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 pb-2">
         <div>
           <h1 className="text-3xl font-bold text-primary font-title tracking-wide">
