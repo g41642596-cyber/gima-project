@@ -1,3 +1,4 @@
+import "./globals.css"
 import Sidebar from "@/components/ui/Sidebar"
 import type React from "react"
 

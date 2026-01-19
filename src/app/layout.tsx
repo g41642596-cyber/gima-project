@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Sidebar from "./components/sidebar";
+import Header from "./components/header";
+import { SidebarProvider } from "./components/sidebarContext";
+import ClientLayout from "./components/clientLayout";
 
 const microgramma = localFont({
   src: "/fonts/font-microgramma.otf", 
