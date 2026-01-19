@@ -1,5 +1,14 @@
-import { redirect } from "next/navigation";
+"use client"
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { use, useEffect } from "react";
 
 export default function Home() {
-  redirect("/categorias");
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/auth/login");
+  }, [router]);
+  
+  return null;
 }
