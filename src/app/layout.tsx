@@ -3,13 +3,13 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 const microgramma = localFont({
-  src: "/fonts/font-microgramma.otf", 
+  src: "/fonts/font-microgramma.otf",
   variable: "--font-microgramma",
   display: "swap",
 });
 
 const archivo = localFont({
-  src: "/fonts/font-archivo.ttf", 
+  src: "/fonts/font-archivo.ttf",
   variable: "--font-archivo",
   display: "swap",
 });
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${microgramma.variable} ${archivo.variable} antialiased flex h-screen bg-gima-light overflow-hidden`}
+        className={`${microgramma.variable} ${archivo.variable} antialiased bg-gima-light`}
       >
         <div className="flex-1 flex flex-col h-full w-full overflow-hidden">
           {children}

@@ -20,7 +20,7 @@ export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Definición de rutas e iconos en un solo lugar
+  // Definimos los items aquí para mantener el código limpio
   const menuItems = [
     {
       icon: LayoutDashboard,
