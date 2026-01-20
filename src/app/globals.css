@@ -1,30 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-<<<<<<< Updated upstream
-@theme {
-  /* Paleta de colores */
-  --color-gima-navy: #0B2545;
-  --color-gima-blue: #0066FF;
-  --color-gima-gray: #C0C0C0;
-  --color-gima-light: #F0FDFA;
-
-  /* Fuentes conectadas a las variables de Next.js */
-  --font-microgramma: var(--font-microgramma);
-  --font-archivo: var(--font-archivo);
-}
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-body {
-  background: var(--color-gima-light);
-  color: var(--foreground);
-  font-family: var(--font-archivo);
-}
-=======
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -147,4 +123,3 @@ body {
     @apply bg-background text-foreground;
   }
 }
->>>>>>> Stashed changes
