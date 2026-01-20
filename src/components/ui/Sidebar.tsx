@@ -108,7 +108,7 @@ export function Sidebar() {
                   : "text-gray-300 hover:text-white hover:bg-white/10"
               )}
             >
-              <div className="min-w-[24px]"> {/* Contenedor fijo para evitar saltos */}
+              <div className="min-w-6"> {/* Contenedor fijo para evitar saltos */}
                 <Icon size={20} className={cn(isActive && "animate-pulse-once")} /> 
               </div>
               
@@ -130,12 +130,12 @@ export function Sidebar() {
         <button
           onClick={handleLogout}
           className={cn(
-            "flex items-center gap-3 w-full px-3 py-3 rounded-xl transition-all duration-200 text-gray-300 hover:text-white hover:bg-red-500/20 hover:text-red-200 whitespace-nowrap",
+            "flex items-center gap-3 w-full px-3 py-3 rounded-xl transition-all duration-200 text-gray-300 hover:text-white hover:bg-red-500/20 whitespace-nowrap",
             !isOpen && "justify-center"
           )}
           title="Cerrar sesión"
         >
-          <div className="min-w-[24px]">
+          <div className="min-w-6">
              <LogOut size={20} />
           </div>
           <span

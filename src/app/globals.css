@@ -44,6 +44,10 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --color-gima-blue: #0066FF;
+  --color-gima-navy: #0B2545;
+  --color-gima-light: #F0FDFA;
+  --color-gima-gray: #64748B;
 }
 
 :root {
