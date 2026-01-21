@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
+
 
 // Componente para mostrar iconos SVG
 const SVGIcon = ({ name, className = 'w-5 h-5', white = false }: { name: string; className?: string; white?: boolean }) => {
@@ -40,56 +41,14 @@ const SVGIcon = ({ name, className = 'w-5 h-5', white = false }: { name: string;
 // Los íconos se pueden implementar usando etiquetas <img> o componentes de imagen de Next.js
 // Ejemplo: <img src="/ruta/al/icono.svg" alt="Descripción" className="w-6 h-6" />
 
-// Definición de tipos para las props del componente MenuItem
-interface MenuItemProps {
-  children: React.ReactNode;
-  icon: React.ReactNode;
-  active?: boolean;
-  isExpanded?: boolean;
-}
-
-// Componente para los elementos del menú
-const MenuItem = ({ children, icon, active = false, isExpanded = true }: MenuItemProps) => (
-  <div className={`flex items-center px-2 py-2 text-sm rounded-lg cursor-pointer transition-colors ${
-    active 
-      ? 'bg-white text-[#0066FF]' 
-      : 'text-white hover:bg-white/10 hover:text-white'
-  }`}>
-    <span className="mr-3">{icon}</span>
-    <span className={`${!isExpanded && 'hidden'}`}>
-      {children}
-    </span>
-  </div>
-)
+// (Menu lateral eliminado: solo se mantienen componentes usados en esta vista)
 
 export default function IdiomasPage() {
   const [selectedLanguage, setSelectedLanguage] = useState('es-latam')
   const [dateFormat, setDateFormat] = useState('DD/MM/AAAA')
   const [timezone, setTimezone] = useState('America/Caracas')
   const [timeFormat, setTimeFormat] = useState('12h')
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  // Efecto para manejar el cambio de tamaño de la ventana
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-      // Cerrar el menú si se cambia a vista móvil
-      if (window.innerWidth >= 768) {
-        setIsSidebarOpen(false)
-      }
-    }
-
-    // Verificar el tamaño inicial
-    handleResize()
-
-    // Agregar event listener para cambios de tamaño
-    window.addEventListener('resize', handleResize)
-
-    // Limpiar el event listener al desmontar
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  
 
   const languages = [
     { id: 'es-latam', name: 'Español (latinoamérica)', nativeName: 'Español', isDefault: true },
@@ -118,109 +77,16 @@ export default function IdiomasPage() {
     // Lógica para guardar preferencias
     alert('Preferencias guardadas correctamente')
   }
-
-  // Función para alternar la barra lateral
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen)
-  }
-
-  // Clases condicionales para la barra lateral
-  const sidebarClasses = `
-    fixed md:static inset-y-0 left-0 z-40
-    ${isExpanded ? 'w-64' : 'w-20'} 
-    bg-[#0B2545] text-white p-4 flex flex-col
-    transform transition-all duration-300 ease-in-out
-    ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-  `
-
-  // Clase para el overlay del menú móvil
-  const overlayClasses = `
-    fixed inset-0 bg-[#0B2545] bg-opacity-50 z-30
-    ${isSidebarOpen ? 'block' : 'hidden'} md:hidden
-  `
+  
 
   return (
     <div className="min-h-screen bg-white flex">
-      {/* Overlay para móvil */}
-      {isMobile && isSidebarOpen && (
-        <div className={overlayClasses} onClick={toggleSidebar} />
-      )}
+      {/* Sidebar removed: simplified layout */}
 
-      {/* Botón de menú hamburguesa */}
-      <button 
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className={`fixed top-4 left-4 z-50 p-2 rounded-md text-[#0B2545] bg-white shadow-md md:hidden transition-opacity duration-300 ${
-          isSidebarOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
-        aria-label="Abrir menú"
-      >
-        ☰
-      </button>
 
-      {/* Sidebar */}
-      <aside 
-        className={sidebarClasses}
-      >
-        {/* Botón para cerrar en móviles */}
-        <button 
-          onClick={() => setIsSidebarOpen(false)}
-          className="md:hidden absolute top-4 right-4 text-white hover:text-gray-300"
-          aria-label="Cerrar menú"
-        >
-          ✕
-        </button>
-
-        <div className="mb-10">
-          <div className="relative h-10 w-10 mx-auto mb-8">
-            <Image 
-              src="/imagenes/logo/logo.svg" 
-              alt="Logo" 
-              fill
-              className="object-contain brightness-0 invert"
-              priority
-            />
-          </div>
-          
-          <button 
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="absolute -right-3 top-20 bg-white rounded-full p-1 shadow-md hover:bg-white/90 z-50"
-          >
-            {isExpanded ? (
-              <SVGIcon name="flecha-pequena-izquierda" className="w-4 h-4" />
-            ) : (
-              <SVGIcon name="flecha-pequena-derecha" className="w-4 h-4" />
-            )}
-          </button>
-        </div>
-
-        <nav className="space-y-1 mt-2">
-          <MenuItem icon={<SVGIcon name="dashboard" white />} active={false} isExpanded={isExpanded}>
-            Dashboard
-          </MenuItem>
-          <MenuItem icon={<SVGIcon name="activos" white />} active={false} isExpanded={isExpanded}>
-            Activos
-          </MenuItem>
-          <MenuItem icon={<SVGIcon name="mantenimiento" white />} active={false} isExpanded={isExpanded}>
-            Mantenimiento
-          </MenuItem>
-          <MenuItem icon={<SVGIcon name="reportes" white />} active={false} isExpanded={isExpanded}>
-            Reportes
-          </MenuItem>
-          <MenuItem icon={<SVGIcon name="configuracion" className="w-5 h-5 text-black" />} active={true} isExpanded={isExpanded}>
-            Configuración
-          </MenuItem>
-        </nav>
-
-        <div className="mt-auto pt-4 border-t border-[#0B2545]/20">
-          <div className="flex items-center p-2 text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors">
-            <SVGIcon name="salida" white />
-            <span className={`${!isExpanded && 'hidden'} ml-2`}>Cerrar sesión</span>
-          </div>
-        </div>
-      </aside>
 
       {/* Contenido principal */}
-      <main className={`flex-1 p-4 transition-all duration-300 ${isSidebarOpen ? 'ml-0' : 'ml-0'} ${isExpanded ? 'md:ml-20' : 'md:ml-20'}`}>
+      <main className="flex-1 p-4 transition-all duration-300 md:ml-20">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div>
