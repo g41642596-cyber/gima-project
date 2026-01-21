@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/ui/Sidebar"; 
+import { Sidebar } from "@/components/layout/Sidebar"; 
 import { SidebarProvider } from "@/components/ui/sidebarContext"; 
 // import Header from "@/components/ui/header"; //
 import type React from "react";

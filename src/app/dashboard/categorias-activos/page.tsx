@@ -3,6 +3,7 @@
 import { useState } from "react"; 
 import { Pencil, Trash2, Plus, Search, Filter } from "lucide-react";
 import DeleteAlert from "@/components/ui/DeleteAlerta"; 
+import { DashboardHeader } from "@/components/layout/DashboardHeader";
 
 // Datos ejemplo 
 const initialCategories = [
@@ -37,7 +38,7 @@ export default function CategoriesPage() {
 
   return (
     <div className="font-sans space-y-6">
-      
+      <DashboardHeader title="Activos" subtitle="Gestión de activos disponibles" />
       {/* HEADER */}
       <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 pb-2">
         <div>
@@ -113,7 +114,7 @@ export default function CategoriesPage() {
                         </button>
                         <button 
                           onClick={() => handleDeleteClick(item.id)}
-                          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <Trash2 size={18} />
                         </button>
