@@ -1,8 +1,8 @@
 "use client"
 
-import { DashboardHeader } from "@/components/ui/dashboard-header"
-import { StatCard } from "@/components/ui/stat-card"
-import { ChartPlaceholder } from "@/components/ui/chart-placeholder"
+import { DashboardHeader } from "@/components/layout/DashboardHeader"
+import { StatCard } from "@/components/dashboard/StatCard"
+import { ChartPlaceholder } from "@/components/ui/ChartPlaceholder"
 
 export default function DashboardPage() {
   return (

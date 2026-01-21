@@ -71,25 +71,6 @@ export default function IdiomasPage() {
   const [isMobile, setIsMobile] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
-  // Efecto para manejar el cambio de tamaño de la ventana
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-      // Cerrar el menú si se cambia a vista móvil
-      if (window.innerWidth >= 768) {
-        setIsSidebarOpen(false)
-      }
-    }
-
-    // Verificar el tamaño inicial
-    handleResize()
-
-    // Agregar event listener para cambios de tamaño
-    window.addEventListener('resize', handleResize)
-
-    // Limpiar el event listener al desmontar
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   const languages = [
     { id: 'es-latam', name: 'Español (latinoamérica)', nativeName: 'Español', isDefault: true },
