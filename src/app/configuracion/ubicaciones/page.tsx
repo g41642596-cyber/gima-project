@@ -1,4 +1,5 @@
 import { Search, Bell, User, Plus, ChevronLeft, Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
 
 
 export default function UbicacionesPage() {
@@ -69,10 +70,12 @@ export default function UbicacionesPage() {
         </header>
 
         {/* BOTÓN VOLVER */}
+        <Link href="/configuracion" > 
             <button className="flex items-center gap-2 text-gray-500 mb-6 hover:text-[#0d2344] transition-colors">
                 <div className="bg-white p-1 rounded-md shadow-sm"><ChevronLeft size={16} /></div>
                 <span className="text-sm font-medium">Volver a configuración</span>
             </button>
+        </Link>
 
         {/* ================= CONTENEDOR PRINCIPAL ================= */}
         <div className="bg-white rounded-[40px] shadow-sm border border-gray-50 overflow-hidden">

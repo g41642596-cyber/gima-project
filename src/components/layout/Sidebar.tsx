@@ -45,7 +45,7 @@ export function Sidebar() {
     {
       icon: Settings,
       label: "Configuración",
-      href: "/dashboard/configuracion",
+      href: "/configuracion",
     },
   ];
 
