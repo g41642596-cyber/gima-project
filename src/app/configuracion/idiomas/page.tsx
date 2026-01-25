@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { DashboardHeader } from '@/components/layout/DashboardHeader';
 
 
 // Componente para mostrar iconos SVG
@@ -79,9 +80,9 @@ export default function IdiomasPage() {
   
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <div className="min-h-screen bg-white ">
       {/* Sidebar removed: simplified layout */}
-
+    <DashboardHeader subtitle="Bienvenido al panel GIMA" />
 
 
       {/* Contenido principal */}

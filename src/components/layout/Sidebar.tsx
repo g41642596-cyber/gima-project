@@ -30,17 +30,17 @@ export function Sidebar() {
     {
       icon: Box,
       label: "Activos",
-      href: "/dashboard/categorias-activos", // Usando la ruta anidada del Code B
+      href: "/categorias-activos", // Usando la ruta anidada del Code B
     },
     {
       icon: Wrench,
       label: "Mantenimiento",
-      href: "/dashboard/mantenimiento",
+      href: "/mantenimiento",
     },
     {
       icon: ClipboardList,
       label: "Reportes",
-      href: "/dashboard/reportes",
+      href: "/reportes",
     },
     {
       icon: Settings,
